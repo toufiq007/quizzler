@@ -3,6 +3,7 @@ import Background2 from "../../assets/backgrounds/2.jpg";
 import Background3 from "../../assets/backgrounds/3.jpg";
 import Background4 from "../../assets/backgrounds/4.jpg";
 import Background5 from "../../assets/backgrounds/5.jpg";
+import Footer from "../common/Footer";
 
 const HomePage = () => {
   return (
@@ -112,6 +113,7 @@ const HomePage = () => {
             </div>
           </section>
         </main>
+        <Footer/>
       </div>
     </>
   );
