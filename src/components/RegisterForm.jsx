@@ -1,5 +1,8 @@
 import { useForm } from "react-hook-form";
 import FieldInput from "./common/Field";
+import axios from "axios";
+import { Navigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const RegistrationForm = () => {
   const {
@@ -8,8 +11,33 @@ const RegistrationForm = () => {
     handleSubmit,
     watch,
   } = useForm();
-  const onSubmit = (formData) => {
-    console.log(formData);
+  const onSubmit = async (formData) => {
+    try {
+      const payload = {
+        full_name: formData.fullName,
+        email: formData.email,
+        password: formData.password,
+        role: formData.admin ? "admin" : "user",
+      };
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_BASE_URL}/api/auth/register`,
+        payload
+      );
+      console.log(response);
+      if (response.status === 201) {
+        toast.success("Registration Succesfull", {
+          position: "top-right",
+          autoClose: 3000,
+        });
+        Navigate("/login");
+      }
+    } catch (err) {
+      console.log(err);
+      toast.error(`${err.message}`, {
+        position: "top-right",
+        autoClose: 3000,
+      });
+    }
   };
 
   const password = watch("password");
