@@ -4,8 +4,11 @@ import Background3 from "../../assets/backgrounds/3.jpg";
 import Background4 from "../../assets/backgrounds/4.jpg";
 import Background5 from "../../assets/backgrounds/5.jpg";
 import Footer from "../common/Footer";
+import { useAuth } from "../../hooks/useAuth";
 
 const HomePage = () => {
+  const { auth } = useAuth();
+  console.log(auth, "this is the auth data from our home page");
   return (
     <>
       <div className="container mx-auto py-3">
@@ -113,7 +116,7 @@ const HomePage = () => {
             </div>
           </section>
         </main>
-        <Footer/>
+        <Footer />
       </div>
     </>
   );

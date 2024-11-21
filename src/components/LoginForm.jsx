@@ -1,14 +1,41 @@
 import { useForm } from "react-hook-form";
 import FieldInput from "./common/Field";
+import { useAuth } from "../hooks/useAuth";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const LoginForm = () => {
+  const {setAuth } = useAuth();
+  const navigate = useNavigate();
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm();
-  const onSubmit = (formData) => {
+const onSubmit = async (formData) => {
     console.log(formData);
+
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_BASE_URL}/api/auth/login`,
+        formData
+      );
+      if (response.status === 200) {
+        toast.success("login successfull!!", {
+          position: "top-right",
+          autoClose: 3000,
+        });
+        setAuth({ ...response.data });
+        navigate("/");
+      }
+    } catch (err) {
+      toast.error("login failed!!", {
+        position: "top-right",
+        autoClose: 3000,
+      });
+      console.log(err);
+    }
   };
   return (
     <>

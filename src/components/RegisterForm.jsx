@@ -1,10 +1,11 @@
 import { useForm } from "react-hook-form";
 import FieldInput from "./common/Field";
 import axios from "axios";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const RegistrationForm = () => {
+  const navigate = useNavigate();
   const {
     register,
     formState: { errors },
@@ -29,7 +30,7 @@ const RegistrationForm = () => {
           position: "top-right",
           autoClose: 3000,
         });
-        Navigate("/login");
+        navigate("/login");
       }
     } catch (err) {
       console.log(err);
