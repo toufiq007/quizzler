@@ -5,6 +5,7 @@ import Background4 from "../../assets/backgrounds/4.jpg";
 import Background5 from "../../assets/backgrounds/5.jpg";
 import Footer from "../common/Footer";
 import { useAuth } from "../../hooks/useAuth";
+import { Link } from "react-router-dom";
 
 const HomePage = () => {
   const { auth } = useAuth();
@@ -22,7 +23,9 @@ const HomePage = () => {
               className="w-32 h-32 rounded-full border-4 border-primary mx-auto mb-4 object-cover"
             />
             <p className="text-xl text-gray-600">Welcome</p>
-            <h2 className="text-4xl font-bold text-gray-700">{auth?.data?.user?.full_name}</h2>
+            <h2 className="text-4xl font-bold text-gray-700">
+              {auth?.data?.user?.full_name}
+            </h2>
           </div>
         )}
 
@@ -32,8 +35,8 @@ const HomePage = () => {
 
             {/* <!-- Cards --> */}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <a
-                href="./result.html"
+              <Link
+                to="/quiz-page"
                 className="rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow max-h-[450px] relative group cursor-pointer"
               >
                 <div className="group-hover:scale-105 absolute transition-all text-white  text-center top-1/2 -translate-y-1/2 px-4">
@@ -57,10 +60,10 @@ const HomePage = () => {
                   alt="JavaScript Hoisting"
                   className="w-full h-full object-cover rounded mb-4"
                 />
-              </a>
+              </Link>
 
-              <a
-                href="./quiz_page.html"
+              <Link
+                to="/quiz-page"
                 className="rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow max-h-[450px] cursor-pointer group relative"
               >
                 <div className="group-hover:scale-105 absolute transition-all text-white  text-center top-1/2 -translate-y-1/2 px-4">
@@ -76,7 +79,7 @@ const HomePage = () => {
                   alt="JavaScript Hoisting"
                   className="w-full h-full object-cover rounded mb-4 transition-all "
                 />
-              </a>
+              </Link>
 
               <div className="rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow max-h-[450px] cursor-pointer group relative">
                 <div className="group-hover:scale-105 absolute transition-all text-white  text-center top-1/2 -translate-y-1/2 px-4">
