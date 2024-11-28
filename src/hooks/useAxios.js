@@ -42,10 +42,15 @@ const useAxios = () => {
               { refreshToken }
             );
 
-            const { accessToken } = response.data.data;
+            const { accessToken, refreshToken: newRefreshToken } =
+              response.data.data;
 
             // Update auth state with new token
-            setAuth((prev) => ({ ...prev, authToken: accessToken }));
+            setAuth((prev) => ({
+              ...prev,
+              authToken: accessToken,
+              refreshToken: newRefreshToken,
+            }));
 
             // Update original request with new token
             originalRequest.headers.Authorization = `Bearer ${accessToken}`;
