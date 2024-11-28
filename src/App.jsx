@@ -6,6 +6,7 @@ import HomePage from "./components/pages/HomePage";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import PrivateRoutes from "./routes/PrivateRoutes";
+import QuizDashboard from "./components/pages/quizpage/QuizDashboard";
 
 function App() {
   return (
@@ -14,7 +15,7 @@ function App() {
       <Routes>
         <Route element={<PrivateRoutes />}>
           {/*  these our protected routes */}
-          <Route path="/quiz-page" element={<div>this is the quiz page</div>} />
+          <Route path="/quiz-page/:quizId" element={<QuizDashboard />} />
         </Route>
         <Route path="/" element={<HomePage />} exact />
         <Route path="/login" element={<LoginPage />} />

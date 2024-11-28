@@ -6,7 +6,7 @@ const QuizCard = ({ quiz }) => {
     <>
       <Link
         key={quiz.id}
-        to="/quiz-page"
+        to={`/quiz-page/${quiz.id}`}
         className="rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow max-h-[450px] relative group cursor-pointer"
       >
         <div className="group-hover:scale-105 absolute transition-all text-white  text-center top-1/2 -translate-y-1/2 px-4">

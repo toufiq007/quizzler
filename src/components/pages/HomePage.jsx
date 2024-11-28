@@ -1,11 +1,6 @@
 import Header from "../common/Header";
-import Background2 from "../../assets/backgrounds/2.jpg";
-import Background3 from "../../assets/backgrounds/3.jpg";
-import Background4 from "../../assets/backgrounds/4.jpg";
-import Background5 from "../../assets/backgrounds/5.jpg";
 import Footer from "../common/Footer";
 import { useAuth } from "../../hooks/useAuth";
-import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import WelcomeBanner from "./home/WelcomeBanner";

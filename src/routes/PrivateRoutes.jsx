@@ -11,7 +11,7 @@ const PrivateRoutes = () => {
           <Header />
           <Outlet />
           <Footer />
-        </div>
+      </div>
       ) : (
         <Navigate to="/login" />
       )}
