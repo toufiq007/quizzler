@@ -6,7 +6,7 @@ const PrivateRoutes = () => {
   const { auth } = useAuth();
   return (
     <div>
-      {auth?.data?.user ? (
+      {auth?.user ? (
         <div className="container mx-auto py-3">
           <Header />
           <Outlet />

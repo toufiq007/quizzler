@@ -6,14 +6,14 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const LoginForm = () => {
-  const {setAuth } = useAuth();
+  const { setAuth } = useAuth();
   const navigate = useNavigate();
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm();
-const onSubmit = async (formData) => {
+  const onSubmit = async (formData) => {
     console.log(formData);
 
     try {
@@ -26,7 +26,13 @@ const onSubmit = async (formData) => {
           position: "top-right",
           autoClose: 3000,
         });
-        setAuth({ ...response.data });
+        const { user, tokens } = response.data.data;
+        // set credentials to the authContext
+        setAuth({
+          user,
+          authToken: tokens?.accessToken,
+          refreshToken: tokens?.refreshToken,
+        });
         navigate("/");
       }
     } catch (err) {
