@@ -2,13 +2,14 @@ import Header from "../common/Header";
 import Footer from "../common/Footer";
 import { useAuth } from "../../hooks/useAuth";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import WelcomeBanner from "./home/WelcomeBanner";
 import QuizCard from "./home/QuizCard";
-import { api } from "../../api";
+import useAxios from "../../hooks/useAxios";
 
 const HomePage = () => {
   const { auth } = useAuth();
+  const {api} = useAxios()
+  console.log(auth, "this is the auth from homepage");
   const [quizList, setQuizList] = useState([]);
 
   // fetch quiz list to render in the ui

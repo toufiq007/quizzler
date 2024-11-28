@@ -5,51 +5,70 @@ import axios from "axios";
 
 const useAxios = () => {
   const { auth, setAuth } = useAuth();
+
   useEffect(() => {
-    // request interceptors
+    // Request Interceptor
     const requestIntercept = api.interceptors.request.use(
       (config) => {
-        const authToken = auth?.accessToken;
+        const authToken = auth?.authToken; // Ensure correct key is used
         if (authToken) {
           config.headers.Authorization = `Bearer ${authToken}`;
         }
-        console.log(config, "this is from request interceptors");
+        console.log("Request Config:", config);
         return config;
       },
-      (err) => Promise.reject(err)
+      (error) => Promise.reject(error)
     );
 
-    // response intercept
+    // Response Interceptor
     const responseIntercept = api.interceptors.response.use(
       (response) => response,
-      async (err) => {
-        const originalRequest = err.config;
-        if (err.response.status === 401 && !originalRequest._retry) {
+      async (error) => {
+        const originalRequest = error.config;
+
+        // Check for 401 Unauthorized and ensure retry is attempted once
+        if (error.response?.status === 401 && !originalRequest._retry) {
           originalRequest._retry = true;
           try {
             const refreshToken = auth?.refreshToken;
+
+            if (!refreshToken) {
+              // Handle missing refresh token case
+              throw new Error("No refresh token available");
+            }
+
             const response = await axios.post(
               `${import.meta.env.VITE_API_BASE_URL}/api/auth/refresh-token`,
               { refreshToken }
             );
+
             const { accessToken } = response.data.data;
-            setAuth({ ...auth, authToken: accessToken });
+
+            // Update auth state with new token
+            setAuth((prev) => ({ ...prev, authToken: accessToken }));
+
+            // Update original request with new token
             originalRequest.headers.Authorization = `Bearer ${accessToken}`;
-            return axios(originalRequest);
-          } catch (err) {
-            console.log(err);
+
+            // Retry the original request
+            return api(originalRequest);
+          } catch (refreshError) {
+            console.error("Failed to refresh token:", refreshError);
+            return Promise.reject(refreshError);
           }
         }
-        return Promise.reject(err);
+
+        return Promise.reject(error);
       }
     );
 
-    // clear method
+    // Cleanup interceptors on unmount
     return () => {
       api.interceptors.request.eject(requestIntercept);
       api.interceptors.response.eject(responseIntercept);
     };
-  }, [auth?.accessToken]);
+  }, [auth]); // Include all necessary dependencies
+
   return { api };
 };
 

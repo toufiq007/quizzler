@@ -2,14 +2,14 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../../../hooks/useAuth";
 import QuizDetails from "./QuizDetails";
 import QuizList from "./QuizList";
-import axios from "axios";
 import { useParams } from "react-router-dom";
-import { api } from "../../../api";
+import useAxios from "../../../hooks/useAxios";
 
 const QuizDashboard = () => {
   const { auth } = useAuth();
   const { quizId } = useParams();
   const [quizDetails, setQuizDetails] = useState({});
+  const { api } = useAxios();
 
   useEffect(() => {
     try {
