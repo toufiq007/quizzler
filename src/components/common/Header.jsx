@@ -13,7 +13,7 @@ const Header = () => {
       <header className="flex justify-between items-center mb-12">
         <img src={LogoIcon} />
         <div>
-          {auth?.data?.user ? (
+          {auth?.user ? (
             <button
               onClick={handleLogout}
               className="px-4 py-2 rounded hover:bg-primary hover:text-white transition-colors"

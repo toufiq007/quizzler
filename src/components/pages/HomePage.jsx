@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import WelcomeBanner from "./home/WelcomeBanner";
 import QuizCard from "./home/QuizCard";
+import { api } from "../../api";
 
 const HomePage = () => {
   const { auth } = useAuth();
@@ -14,9 +15,11 @@ const HomePage = () => {
   useEffect(() => {
     const fetchQuizes = async () => {
       try {
-        const response = await axios.get(
+        const response = await api.get(
           `${import.meta.env.VITE_API_BASE_URL}/api/quizzes`
         );
+
+        console.log(response, "this is the reponse in the home page");
         if (response.status === 200) {
           setQuizList([...response.data.data]);
         }

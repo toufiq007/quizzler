@@ -4,6 +4,7 @@ import QuizDetails from "./QuizDetails";
 import QuizList from "./QuizList";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { api } from "../../../api";
 
 const QuizDashboard = () => {
   const { auth } = useAuth();
@@ -13,7 +14,7 @@ const QuizDashboard = () => {
   useEffect(() => {
     try {
       const fetchQuizDetails = async () => {
-        const response = await axios.get(
+        const response = await api.get(
           `${import.meta.env.VITE_API_BASE_URL}/api/quizzes/${quizId}`
         );
         console.log(response, "this is the response of the quizDetails");
@@ -26,7 +27,7 @@ const QuizDashboard = () => {
       console.log(err);
     }
   }, [quizId]);
-  
+
   return (
     <>
       <main className="max-w-8xl mx-auto h-[calc(100vh-10rem)]">
